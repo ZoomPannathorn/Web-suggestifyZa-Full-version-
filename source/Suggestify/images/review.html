@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --main-color: #203641; /* สีฟ้า */
+            --box-bg: #10171f;
+            --text-color: #ffffff;
+            --nav-height: 60px;
+            --space-top: 30px;
+        }
+
+        /* General Styles */
+        body {
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #10171f;
+            color: #fff;
+        }
+
+        body.light-mode {
+            background-color: #f9f9f9;
+            color: #121212;
+        }
+
+        /* Navigation Menu */
+        .nav-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--main-color);
+            padding: 0 50px;
+            z-index: 1000;
+            height: var(--nav-height);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--text-color);
+            font-size: 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            padding: 0;
+        }
+
+        .nav-menu li {
+            margin: 0 10px;
+        }
+
+        .nav-menu li a {
+            color: var(--text-color);
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease-in-out;
+        }
+
+        /* Mobile Menu Toggle */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--nav-height);
+                right: 0;
+                background-color: var(--main-color);
+                width: 200px;
+                padding: 10px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+                text-align: center;
+            }
+        }
+
+        /* Review Page Styles */
+        .review-page {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #10171f;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        body.light-mode .review-page {
+            background-color: #fff;
+        }
+
+        .drama-description {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #ddd;
+        }
+
+        .rating-section, .comment-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+        }
+
+        body.light-mode .rating-section, body.light-mode .comment-section {
+            background-color: #f3f3f3;
+        }
+
+        #comments-list .comment {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        body.light-mode #comments-list .comment {
+            background-color: #e9e9e9;
+        }
+
+        .comment img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .comment .content p {
+            margin: 0;
+        }
+
+        .vote-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vote-buttons button {
+            background-color: #444;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        body.light-mode .vote-buttons button {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        .tags span {
+            display: inline-block;
+            background-color: #444;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        body.light-mode .tags span {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        #comment-input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: #2a2a2a;
+            color: #fff;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        body.light-mode #comment-input {
+            background-color: #f3f3f3;
+            color: #000;
+        }
+
+        #submit-comment {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .poster-container {
+    display: flex; /* Use this for flexbox centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically if needed */
+    margin: 20px 0; /* Optional: Add some margin for spacing */
+}
+
+.poster {
+    width: 420px;
+    height: 594px;
+    border-radius: 8px;
+}
+#stream-logo {
+    display: none;  /* ตรวจสอบว่าไม่ได้ตั้งให้ซ่อนภาพ */
+}
+
+    </style>
+</head>
+<body>
+    <!-- เมนูนำทาง -->
+    <div class="nav-wrapper">
+        <div class="container">
+            <div class="nav">
+                <a href="#" class="logo">
+                    <i class='bx bx-tv bx-tada main-color'></i>Suggestiffy_Za
+                </a>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#">หน้าแรก</a></li>
+                    <li><a href="#">ซีรีส์เกาหลี</a></li>
+                    <li><a href="#">อนิเมะ</a></li>
+                    <li><a href="#">รีวิวยอดนิยม</a></li>
+                </ul>
+                <div class="hamburger-menu" id="hamburger-menu">
+                    <div class="hamburger"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- หน้ารีวิว -->
+    <div class="review-page">
+        <h1 id="drama-title"></h1>
+        <div class="poster-container">
+            <img id="drama-poster" class="poster" src="" alt="Drama Poster">
+        </div>
+
+        <!-- เรื่องย่อ -->
+        <div id="drama-description" class="drama-description"></div>
+
+        <!-- Genres -->
+        <div class="drama-description" id="drama-genres">
+            <p><strong>Genres:</strong></p>
+        </div>
+
+        <!-- Trailer -->
+        <div class="drama-description">
+            <p><strong>Trailer:</strong> <a href="#" target="_blank" id="drama-trailer">ดูตัวอย่าง</a></p>
+        </div>
+
+<!-- Stream Section -->
+<div class="main-content">
+    <h1>Stream available on</h1>
+    <!-- Link to the streaming service -->
+    <a id="drama-url" href="" target="_blank">
+        <!-- Streaming logo -->
+        <img id="stream-logo" src="" alt="Streaming Logo" style="cursor: pointer; width: 200px;" />
+    </a>
+</div>
+
+
+
+
+        <!-- Review from Admin -->
+        <div class="rating-section">
+            <h3>รีวิวจากแอดมิน</h3>
+            <p id="drama-review">Loading...</p>
+        </div>
+
+        <!-- Comment Section -->
+        <div class="comment-section">
+            <h3>รีวิวทั้งหมด (<span id="total-comments">0</span>)</h3>
+            <div id="comments-list"></div>
+
+            <textarea id="comment-input" placeholder="แสดงความคิดเห็นของคุณ..."></textarea>
+            <button id="submit-comment">ส่งรีวิว</button>
+        </div>
+    </div>
+
+    <script>
+        // Data for different dramas
+        const dramaData = {
+    squidGame: {
+        title: "Squid Game",
+        poster: "./images/review/squid-game.jpeg",
+        trailer: "https://youtu.be/0XJxfbN36Uw?si=cj9Wvu9U2u4PXx93",
+        streamUrl: "https://www.netflix.com/title/81040344",
+        rating: "8.5",
+        duration: "8 episodes",
+        description: "Squid Game เป็นซีรีส์เกาหลีที่เล่าถึงผู้เข้าแข่งขันที่ต้องต่อสู้เพื่อเงินรางวัลมหาศาล โดยมีชีวิตเป็นเดิมพัน หากแพ้ในเกมก็จะต้องเสียชีวิต\nผลงานนี้เป็นการกำกับของ ฮวังดงฮยอก ที่ใช้เวลาในการพัฒนาผลงานมากกว่า 10 ปี\nโดยได้รับแรงบันดาลใจจากการ์ตูนในปี 2008 และมีการบิดเบือนจากความทรงจำที่บริสุทธิ์ในวัยเด็กของเขา\nกลายเป็นภาพสะท้อนของความเชื่อและความหวังที่ไม่เคยเป็นจริง\nในเรื่องนี้\nอีจองแจ รับบท ซองกีฮุน (ผู้แพ้ชีวิต) ที่มีกำลังใจเพียงเล็กน้อยในชีวิต\nแต่เขากลับพบว่าความหวังสุดท้ายของเขาคือการชนะเกมเพื่อปลดหนี้และกอบกู้ชีวิตที่ตกต่ำ\nส่วน\nพัคแฮซู ก็รับบท โจซังอู รุ่นน้องที่มาพร้อมกับความท้าทายส่วนตัวที่ยากจะคาดเดา\nผลงานของเขาใน Prison Playbook ทำให้หลายคนรู้จักเขามากขึ้น\nในเรื่องยังมี\nจองโฮยอน นักแสดงหน้าใหม่ที่กลายเป็นดาวเด่นหลังจากการแสดงในซีรีส์นี้\nทำให้ Squid Game เป็นหนึ่งในซีรีส์ที่ได้รับความนิยมสูงสุดทั่วโลกในปี 2021",
+        genres: "แอ๊ค, Adventure, Thriller",
+        review: "คือเรื่องเนี้ยผมบอกเลยนะครับว่า หลังจากดูคือที่สุดมันเข้าถึงอารมณ์คนดูที่เรียกได้ว่าดีมากๆโดยเฉพาะฉากหลายๆฉากที่เล่นกับจิตใจคนการแบ่งชั้นชนในระบอบการปกครองของเกาหลี คนรวย คนจน ขอบอกเลยว่าใครที่ชอบแนวเล่นบอร์ดเกมหรือความท้ายห้ามพลาดเด็กขาดเลยครับเรื่องนี้",
+                reviews: [
+                    { author: "Alice", text: "An intense and thrilling experience!" },
+                    { author: "Bob", text: "Loved the plot twists!" }
+                ]
+            },
+            marryMyHusband: {
+                title: "Marry My Husband",
+                poster: "./images/review/Marry_My_Husband.jpg",
+                trailer: "https://youtu.be/0XJxfbN36Uw?si=cj9Wvu9U2u4PXx93",
+                streamUrl: "https://www.primevideo.com/dp/amzn1.dv.gti.575a83f3-2ef4-4e54-89c7-7a0e15517d33?autoplay=0&ref_=atv_cf_strg_wb",
+                rating: "7.8",
+                duration: "10 episodes",
+                description: "A romantic comedy about a man who gets a second chance at love.",
+                genres: "Action, Adventure, Thriller",
+                review: "โดยส่วนตัวผมดูสนุกสะใจได้นะเรื่องนี้ เพื่อความบันเทิงโดยแท้แต่ในความสะใจนั้นก็ยังสงสัยการแก้แค้นโดยมุ่งปลายทางที่จะรู้ว่ามีคนตายแน่ๆแต่ก็ไม่แก้ไข ไม่ช่วยชีวิต  มันดูโหดร้ายไปมั๊ย ใครจะตายไม่รู้แต่คนที่ฉันรักจะต้องไม่ตายแต่เป็นละคร  ให้จบดีๆเข้าไว้ แฮปปีเอ็นดิ้ง ถ้าดูเพื่อความบันเทิงถือว่าดีเลยครับ",
+                reviews: [
+                    { author: "Charlie", text: "So heartwarming!" },
+                    { author: "Diana", text: "The chemistry between the leads is amazing!" }
+                ]
+            },
+            dandadan: {
+                title: "Dandadan",
+                poster: "./images/review/dandadan.jpg",
+                trailer: "https://youtu.be/0XJxfbN36Uw?si=cj9Wvu9U2u4PXx93",
+                                streamUrl: "https://www.netflix.com/title/81040344",
+                rating: "9.5",
+                duration: "120 mins",
+                description: "A supernatural anime filled with mystery and action.",
+                genres: "Action, Adventure, Thriller",
+                review: "อนิเมะเรื่องนี้ค่อนข้างชอบเลยครับ เนื้อเรื่องเล่าไม่ได้ยืดมากและเข้าสู่เนื้อเรื่องอย่างพอดี แต่ด้วยความที่เป็นแนวโชเน็น เนื้อเรื่องขะไม่ได้ซับซ้อนอะไรมากและเดินทางค่อนข้างเป็นเส้นตรง คนที่ไม่ได้ชอบแนวโชเน็นอาจไม่ชอบเรื่องนี้ แต่ส่วนตัวแอดมินชอบความง่ายๆในการดำเนินเรื่องเลยชอบเป็นพิเศษครับ ควรดู!",
+                reviews: [
+                    { author: "Tom Lee", text: "Intense and full of twists!" },
+                    { author: "Anna White", text: "Loved the combination of horror and fantasy." }
+                ]
+            },
+    blueLock: {
+    title: "Blue Lock",
+    poster: "./images/review/BLUELOCK.jpg",
+    trailer: "https://youtu.be/1X9FokcTYmI",
+    streamUrl: "https://www.crunchyroll.com/blue-lock",
+    rating: "8.7",
+    duration: "24 mins/episode",
+    description: "A thrilling sports anime that focuses on soccer and personal growth.",
+    genres: "Sports, Drama, Thriller",
+    review: "Blue Lock เป็นอนิเมะที่น่าสนใจมากในเรื่องของการพัฒนาทักษะฟุตบอลและความมุ่งมั่นของตัวละครหลัก แม้ว่าบางครั้งเรื่องราวอาจดูเต็มไปด้วยความตึงเครียด แต่ก็มีความสนุกและความท้าทายที่ทำให้ติดตามต่อไปได้ อยากให้ทุกคนลองดูครับ!",
+    reviews: [
+        { author: "James Smith", text: "Exciting and full of competitive spirit!" },
+        { author: "Lily Chang", text: "Amazing characters and intense matches!" }
+    ]
+},
+
+bluePeriod: {
+    title: "Blue Period",
+    poster: "./images/review/BluePeriod-Poster.jpg",
+    trailer: "https://youtu.be/9TpdztdXMZ8",
+    streamUrl: "https://www.netflix.com/title/81042836",
+    rating: "8.9",
+    duration: "24 mins/episode",
+    description: "A heartwarming anime about pursuing art and personal dreams.",
+    genres: "Drama, Slice of Life",
+    review: "สำหรับใครที่รักในศิลปะและการเดินตามความฝัน Blue Period คือตัวเลือกที่น่าจับตามอง มันเล่าเรื่องของการพัฒนาตัวเองและการหาจุดมุ่งหมายในชีวิตได้อย่างน่าสนใจและมีเสน่ห์ ผมชอบการใช้การวาดภาพเป็นเครื่องมือในการถ่ายทอดอารมณ์มากๆ ครับ!",
+    reviews: [
+        { author: "Chris Tan", text: "A touching journey of self-discovery and art." },
+        { author: "Sophie Lee", text: "Beautifully portrays the struggles of pursuing dreams." }
+    ]
+},
+
+alchemyOfSouls: {
+    title: "Alchemy of Souls",
+    poster: "./images/review/alchemy_of_souls_6799.webp",
+    trailer: "https://youtu.be/32xZnVmyXg8",
+    streamUrl: "https://www.netflix.com/title/81068580",
+    rating: "9.0",
+    duration: "70 mins/episode",
+    description: "A historical fantasy drama with magic, soul-swapping, and intrigue.",
+    genres: "Fantasy, Drama, Romance",
+    review: "Alchemy of Souls เป็นซีรีส์ที่ผสมผสานการผจญภัย, เวทมนตร์, และความรักได้อย่างลงตัว ทุกตอนมีความตึงเครียดและการพัฒนาเรื่องราวที่ค่อยๆ ดึงคุณเข้าไปในโลกของมัน ผมชอบการสร้างโลกและตัวละครที่มีความลึกมากๆ ครับ",
+    reviews: [
+        { author: "Rachel Kim", text: "A magical journey that keeps you hooked!" },
+        { author: "David Lee", text: "The mix of romance and fantasy is perfection." }
+    ]
+},
+
+slamDunk: {
+    title: "Slam Dunk",
+    poster: "./images/review/slamDunk.jpg",
+    trailer: "https://youtu.be/QnZbGq5d1ik",
+    streamUrl: "https://www.crunchyroll.com/slam-dunk",
+    rating: "8.8",
+    duration: "24 mins/episode",
+    description: "An iconic sports anime about basketball and teamwork.",
+    genres: "Sports, Comedy, Drama",
+    review: "Slam Dunk เป็นอนิเมะที่ไม่ควรพลาดสำหรับแฟนบาสเก็ตบอลและการต่อสู้ของทีม เรื่องราวสนุกสนานและตัวละครที่มีเอกลักษณ์ทำให้เป็นหนึ่งในอนิเมะกีฬาในตำนานที่ยังคงได้รับความนิยมจนถึงทุกวันนี้!",
+    reviews: [
+        { author: "Mark Johnson", text: "Classic and full of energy!" },
+        { author: "Emma White", text: "A perfect mix of humor and inspiring teamwork." }
+    ]
+}
+
+        };
+        
+
+
+
+        // Function to get the drama name from the URL query parameters
+function getDramaFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('drama'); // Returns 'squidGame', 'marryMyHusband', etc.
+}
+
+// Dynamically update the page based on the drama name
+function loadDramaReview() {
+    const dramaName = getDramaFromURL(); // Get the drama from the URL
+    const drama = dramaData[dramaName]; // Get the data for the selected drama
+
+    // Populate drama details
+    document.getElementById("drama-title").textContent = drama.title;
+    document.getElementById("drama-poster").src = drama.poster;
+    document.getElementById("drama-description").textContent = drama.description;
+    document.getElementById("drama-genres").textContent = drama.genres;
+    document.getElementById("drama-trailer").href = drama.trailer;  
+    document.getElementById('drama-url').href = drama.streamUrl;
+    document.getElementById("drama-review").textContent = drama.review;
+
+// ฟังก์ชันสำหรับโหลดโลโก้ของบริการสตรีมมิ่งที่ถูกต้อง
+function loadStreamingServiceLogo(service) {
+    const streamLogo = document.getElementById('stream-logo');
+    const dramaUrl = document.getElementById('drama-url');
+
+    console.log('Loading streaming service:', service);  // ตรวจสอบการเรียกใช้ฟังก์ชัน
+
+    if (service === 'netflix') {
+        streamLogo.src = "./images/logo/Logonetflix.png";  // โลโก้ Netflix
+        streamLogo.alt = "Netflix Logo";
+        dramaUrl.href = "https://www.netflix.com/title/81040344"; // ลิงก์ Netflix
+    } else if (service === 'prime') {
+        streamLogo.src = "./images/logo/Prime_Video.png";  // โลโก้ Prime Video
+        streamLogo.alt = "Prime Video Logo";
+        dramaUrl.href = "https://www.primevideo.com/dp/amzn1.dv.gti.575a83f3-2ef4-4e54-89c7-7a0e15517d33?autoplay=0&ref_=atv_cf_strg_wb";  // ลิงก์ Prime Video สำหรับ "Marry My Husband"
+    }
+}
+
+
+// ฟังก์ชันเพื่อโหลด Prime Video สำหรับ "Marry My Husband"
+function loadPrimeVideo() {
+    loadStreamingServiceLogo('prime');  // เรียกฟังก์ชันพร้อมระบุว่าใช้ Prime Video
+}
+
+// เรียกใช้ฟังก์ชันเมื่อหน้าเว็บโหลดเสร็จ
+window.onload = function() {
+    loadPrimeVideo();  // เรียกใช้เพื่อแสดงโลโก้และลิงก์ของ Prime Video สำหรับ "Marry My Husband"
+    
+    // หากต้องการแสดง Netflix แทน Prime Video สามารถเรียกใช้งานฟังก์ชันนี้
+    // loadStreamingServiceLogo('netflix');  // ถ้าใช้ Netflix ให้เปลี่ยนเป็น 'netflix'
+};
+
+
+    // Display reviews
+    const reviewsList = document.getElementById("comments-list");
+    drama.reviews.forEach(review => {
+        const reviewDiv = document.createElement("div");
+        reviewDiv.classList.add("comment");
+        reviewDiv.innerHTML = `<p><strong>${review.author}:</strong> ${review.text}</p>`;
+        reviewsList.appendChild(reviewDiv);
+    });
+    
+    // Handle Comment Submission
+    const submitButton = document.getElementById('submit-comment');
+    const commentInput = document.getElementById('comment-input');
+    const totalComments = document.getElementById('total-comments');
+
+    submitButton.addEventListener('click', () => {
+        if (commentInput.value) {
+            const commentDiv = document.createElement("div");
+            commentDiv.classList.add("comment");
+            commentDiv.innerHTML = `<p><strong>You:</strong> ${commentInput.value}</p>`;
+            reviewsList.appendChild(commentDiv);
+            commentInput.value = '';
+            totalComments.textContent = reviewsList.children.length;
+        }
+    });
+}
+    
+// Call the function to load the drama review when the page loads
+window.onload = loadDramaReview;
+    </script>
+</body>
+</html>

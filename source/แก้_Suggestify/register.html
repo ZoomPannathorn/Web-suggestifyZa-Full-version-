@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <!-- External stylesheets -->
+    <!-- ลิงก์ฟอนต์จาก Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- ลิงก์ไอคอนจาก Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --main-color: #212324; /* สีฟ้า */
+            --box-bg: #221f1f;
+            --text-color: #ffffff;
+            --nav-height: 60px;
+            --highlight-color: #0056b3; /* สีไฮไลต์ */
+            --space-top: 30px;
+        }
+      /* General Styles */
+      body {
+    font-family: 'Kanit', sans-serif;
+    background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXZ0cXFkaDV0c2tnZzg1YmdyZGptbWUyaXlybTg0Njl4M2Nscmp6NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Uz4cDaGXPxeuY/giphy.gif') no-repeat center center fixed;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    height: 100vh;
+    margin: 0;
+}
+  
+        /* เมนูนำทาง */
+        .nav-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--main-color);
+            padding: 10px 20px;
+            z-index: 1000;
+            height: var(--nav-height);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--text-color);
+            font-size: 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-menu li {
+            margin: 0 15px;
+        }
+
+        .nav-menu li a {
+            color: var(--text-color);
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease-in-out;
+        }
+
+        /* เปลี่ยนสีเมื่อ hover บนลิงก์ */
+        .nav-menu li a:hover {
+            color: var(--main-color);
+        }
+
+        /* ปุ่มเข้าสู่ระบบ */
+        .btn-hover {
+            background-color: var(--main-color);
+            color: var(--text-color);
+            padding: 8px 15px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-hover:hover {
+            background-color: #0056b3;
+        }
+  
+      /* Registration Form Styles */
+      #registerform {
+          background-color: rgba(219, 214, 214, 0.9); /* Dark gray background for the form */
+          padding: 40px;
+          border-radius: 12px;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+          max-width: 750px;
+          margin: 100px auto;
+          font-family: 'Roboto', sans-serif;
+      }
+  
+      .form-group label {
+          font-size: 14px;
+          font-weight: bold;
+          color: #fff; /* White text */
+          margin-bottom: 10px;
+          display: block;
+      }
+  
+      .form-control {
+          border: 1px solid #00bfff; /* Light blue border */
+          border-radius: 8px;
+          padding: 12px;
+          font-size: 14px;
+          width: 100%;
+          margin-bottom: 20px;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          background-color: #222; /* Slightly lighter dark background */
+          color: #fff; /* White text for input */
+      }
+  
+      .form-control:focus {
+          border-color: #0099cc; /* Brighter blue on focus */
+          box-shadow: 0 0 10px rgba(0, 153, 204, 0.3);
+          background-color: #333; /* Dark background stays */
+      }
+  
+      .radio-inline {
+          margin-right: 20px;
+          font-size: 14px;
+          color: #fff; /* White text */
+      }
+  
+      .checkbox2 label {
+          font-size: 14px;
+          color: #fff; /* White text */
+      }
+  
+      /* Button Styles */
+      .btn {
+          background-color: #000000; /* Blue background */
+          color: #fff;
+          padding: 12px 24px;
+          border: none;
+          border-radius: 50px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background 0.3s ease, transform 0.3s ease;
+          width: 100%;
+          text-align: center;
+      }
+  
+      .btn:hover {
+          background-color: #000000; /* Darker blue on hover */
+          transform: scale(1.05);
+      }
+  
+      .btn-register i {
+          margin-right: 10px;
+      }
+  
+      /* Alert Styles */
+      #alert_register {
+          margin-bottom: 20px;
+      }
+  
+      .alert {
+          font-size: 16px;
+          font-weight: bold;
+          color: #fff;
+          background-color: #00bfff; /* Light blue background for alert */
+          border: 1px solid #0099cc;
+          padding: 20px;
+          border-radius: 8px;
+          margin-bottom: 20px;
+          text-align: center;
+      }
+  
+      .alert-warning {
+          background-color: #0066cc; /* Blue background for success */
+          border-color: #005bb5;
+      }
+  
+      /* Captcha Image */
+      .img-rounded {
+          max-width: 100%;
+          height: auto;
+          border-radius: 8px;
+      }
+  
+      /* Responsive Styles */
+      @media screen and (max-width: 768px) {
+          .nav-menu {
+              flex-direction: column;
+              align-items: center;
+              margin-top: 20px;
+          }
+  
+          .nav-menu li {
+              margin: 10px 0;
+          }
+  
+          #registerform {
+              padding: 30px;
+              width: 90%;
+          }
+  
+          .form-group label {
+              font-size: 12px;
+          }
+  
+          .form-control {
+              font-size: 12px;
+              padding: 10px;
+          }
+  
+          .btn {
+              font-size: 14px;
+          }
+      }
+    /* Move the "สมัครสมาชิก" button down */
+.btn-register {
+    margin-top: 20px; /* Adjust this value as needed */
+    /* Existing styles */
+    background: linear-gradient(45deg, #0066cc, #0044aa);
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-register:hover {
+    background: linear-gradient(45deg, #005bb5, #003f8c);
+    transform: scale(1.1);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-register:focus {
+    outline: none;
+    box-shadow: 0 0 5px 2px rgba(0, 102, 204, 0.7);
+}
+
+.btn-register:disabled {
+    background: #b3c7d6;
+    cursor: not-allowed;
+}
+/* ปรับเปลี่ยนสีของข้อความในแต่ละ label ให้เป็นสีดำ */
+.form-group label {
+    color: #000 !important; /* สีดำ */
+}
+
+/* เพิ่มการปรับให้สีของข้อความภายใน radio button เป็นสีดำ */
+.radio-inline {
+    color: #000 !important; /* สีดำ */
+}
+
+/* ปรับสีของ checkbox เป็นสีดำ */
+.checkbox2 label {
+    color: #000 !important; /* สีดำ */
+}
+        /* กำหนดให้ใช้ฟอนต์ Kanit ทั่วทั้งหน้า */
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXZ0cXFkaDV0c2tnZzg1YmdyZGptbWUyaXlybTg0Njl4M2Nscmp6NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Uz4cDaGXPxeuY/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            height: 100vh;
+            margin: 0;
+        }
+        .nav-menu li a:hover {
+            color: var(--highlight-color);
+        } 
+
+  </style>
+  
+  
+  
+  
+</head>
+
+<body>
+<!-- เมนูนำทาง -->
+<div class="nav-wrapper">
+  <div class="container">
+      <div class="nav">
+          <a href="login.php" class="logo">
+              <i class='bx bx-tv bx-tada main-color'></i>Suggestiffy_Za
+          </a>
+          <ul class="nav-menu" id="nav-menu">
+            <li><a href="login.php">หน้าแรก</a></li>
+            <li><a href="login.php">ซีรีส์เกาหลี</a></li>
+            <li><a href="login.php">อนิเมะ</a></li>
+            <li><a href="login.php">รีวิวยอดนิยม</a></li>
+            <li><a href="about.html">เกี่ยวกับเรา</a></li>
+              <li>
+                  <a href="login.html">เข้าสู่ระบบ</a>
+              </li>
+          </ul>
+      </div> <!-- Closing .nav -->
+  </div> <!-- Closing .container -->
+</div>
+
+
+    <!-- Registration Form -->
+    <div id="alert_register"></div>
+<table width="1200" align="center" cellpadding="0" cellspacing="0">
+    <tr><br><br><br><br><br></tr>
+    <tr>
+        <td colspan="7" valign="top" background="website/img/page/index_09.png">
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td colspan="3" background="website/img/page/bg_register.png"></td>
+                </tr>
+                <tr>
+                    <td width="1%" height="899"></td>
+                    <td valign="top">
+                        <form method="post" action="register.php" id="registerform">
+                            <div id="alert_register"></div>
+                            <div class="row">
+                                <!-- Username -->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="user">Username / ID</label>
+                                        <input type="text" class="form-control input-lg" id="user" name="userid" placeholder="ชื่อบัญชี" autocomplete="off" required>
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pass">Password</label>
+                                        <input type="password" class="form-control input-lg" id="pass" name="pass" placeholder="รหัสผ่าน" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="repass">Password Again</label>
+                                        <input type="password" class="form-control input-lg" id="repass" name="repass" placeholder="ยืนยันรหัสผ่าน" required>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control input-lg" id="email" name="email" placeholder="อีเมล์ที่สามารถใช้งานได้ (ex.abc123@gmail.com)" autocomplete="off" required>
+                                    </div>
+                                </div>
+
+                                <!-- Gender -->
+<!-- Gender -->
+<div class="col-md-12">
+    <div class="form-group">
+        <label>Gender</label>
+        <label class="radio-inline">
+            <input type="radio" class="flat" name="sex" value="Male" required> 
+            <img class="img-rounded"> Male <small>(ชาย)</small>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" class="flat" name="sex" value="Female" required>
+            <img class="img-rounded"> Female <small>(หญิง)</small>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" class="flat" name="sex" value="Other"> 
+            <img class="img-rounded"> Other <small>(อื่นๆ)</small>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" class="flat" name="sex" value="Prefer not to say"> 
+            <img class="img-rounded"> Prefer not to say <small>(ไม่ระบุ)</small>
+        </label>
+    </div>
+</div>
+         
+
+                                <!-- Terms Acceptance -->
+                                <div class="col-md-12">
+                                    <div class="checkbox2">
+                                        <label>
+                                            <input type="checkbox" class="flat" name="terms" value="1" required> ยอมรับข้อตกลงในการสมัครสมาชิก
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-md-12">
+                                    <button type="submit" id="btnregister" class="btn2 btn-register btn-lg" data-loading-text="<i class='fa fa-circle-o-notch fa-spin fa-lg'></i> L o a d i n g . . .">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i> สมัครสมาชิก
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+                        </td>
+                        <td width="1%"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="7" background="website/img/page/index_10.png"></td>
+        </tr>
+    </table>
+
+ 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+ $.ajax({
+    url: "register.php",  // URL ของ PHP ที่จะประมวลผลข้อมูล
+    type: "POST",
+    data: $(this).serialize(),  // ส่งข้อมูลในฟอร์ม
+    dataType: "json",  // คาดหวังการตอบกลับในรูปแบบ JSON
+    success: function (data) {
+        // ปรับสถานะของปุ่มและแสดงข้อความ
+        $("#btnregister").removeAttr('disabled');
+        $("#btnregister").html("<i class='fa fa-user-plus' aria-hidden='true'></i> สมัครสมาชิก");
+
+        // ตรวจสอบผลลัพธ์จาก PHP
+        if (data.status === 'success') {
+            // หากสมัครสมาชิกสำเร็จ
+            $("#alert_register").html("<div class='alert alert-success text-center'>" + data.message + "</div>");
+            setTimeout(function () {
+                window.location.href = "login.php";  // Redirect ไปที่หน้า login
+            }, 1500);
+        } else if (data.status === 'error') {
+            // หากเกิดข้อผิดพลาด (เช่น ชื่อผู้ใช้ซ้ำ)
+            $("#alert_register").html("<div class='alert alert-danger text-center'>" + data.message + "</div>");
+        }
+    },
+    error: function (xhr, status, error) {
+        // หากมีปัญหาในการเชื่อมต่อ
+        $("#btnregister").removeAttr('disabled');
+        $("#btnregister").html("<i class='fa fa-user-plus' aria-hidden='true'></i> สมัครสมาชิก");
+        $("#alert_register").html("<div class='alert alert-danger text-center'>เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์</div>");
+    }
+});
+
+
+</script>
+
+    </script>
+
+</body>
+
+</html>

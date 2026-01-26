@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Content Suggestions</title>
+        <!-- GOOGLE FONTS -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+        <!-- Google Fonts for Thai font -->
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+        <!-- OWL CAROUSEL -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+        <!-- BOX ICONS -->
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+        <!-- APP CSS -->
+        <link rel="stylesheet" href="grid.css">
+        <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+    <h1>Content Suggestions</h1>
+
+    <div>
+        <input type="text" id="suggestion-input" placeholder="Enter your suggestion...">
+        <button id="add-suggestion">Add Suggestion</button>
+    </div>
+    
+    <h2>Suggestions List</h2>
+    <div id="suggestions-list"></div>
+    
+    <script>
+    // Fetch and display all suggestions on page load
+    window.onload = function() {
+        fetch('http://localhost:3000/get-suggestions')
+            .then(response => response.json())
+            .then(data => {
+                const suggestionList = document.getElementById('suggestions-list');
+                suggestionList.innerHTML = '';
+                data.forEach(suggestion => {
+                    const div = document.createElement('div');
+                    div.classList.add('suggestion');
+                    div.innerHTML = `
+                        <span class="suggestion-text">${suggestion.suggestion_text}</span>
+                        <button class="delete-btn" data-id="${suggestion.suggestion_id}">Delete</button>
+                    `;
+                    suggestionList.appendChild(div);
+                });
+            })
+            .catch(err => console.error('Error fetching suggestions:', err));
+    };
+    
+    // Add suggestion to database
+    document.getElementById('add-suggestion').addEventListener('click', function() {
+        const suggestionText = document.getElementById('suggestion-input').value;
+    
+        if (suggestionText.trim() === '') {
+            alert('Please enter a suggestion.');
+            return;
+        }
+    
+        fetch('http://localhost:3000/add-suggestion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ suggestionText })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Suggestion added!');
+                document.getElementById('suggestion-input').value = ''; // Clear input
+                window.location.reload(); // Refresh suggestion list
+            } else {
+                alert('Error adding suggestion');
+            }
+        })
+        .catch(err => console.error('Error adding suggestion:', err));
+    });
+    </script>
+    
+</body>
+</html>
