@@ -1,3 +1,6 @@
+# 🎬 SuggestifyZa: Anime & K-Drama Review Platform
+
+
 Suggestify/
 │
 ├── index.php                  # Main landing page
