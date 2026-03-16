@@ -1,8 +1,11 @@
-# 🔍 AI Content Verification & Blockchain Audit Platform
+# 🔍🎬 SuggestifyZa: Anime & K-Drama Review Platform
 
-A web platform for reviewing and verifying content with a structured user review system.
-
+Suggestify is a web-based community platform for Anime and Korean Drama (K-Drama) enthusiasts. The platform allows users to discover trending series, read community reviews, and manage their personal watchlists.
 ---
+<img width="975" height="455" alt="537346863-304e73d6-3f0f-4017-87f1-7017691df9a2" src="https://github.com/user-attachments/assets/a2d39266-b44d-4c05-a389-6a08c8dfc2e1" />
+<img width="834" height="773" alt="Screenshot 2026-03-16 221644" src="https://github.com/user-attachments/assets/478c1302-7f08-4ca2-aaf5-9c99a64d05f9" />
+<img width="835" height="757" alt="Screenshot 2026-03-16 221713" src="https://github.com/user-attachments/assets/46e81898-410a-4990-bb1b-d1f7f8a094ab" />
+<img width="832" height="449" alt="Screenshot 2026-03-16 221753" src="https://github.com/user-attachments/assets/8d828618-83b0-4d6c-bd62-319e5a3c601b" />
 
 # 📂 Project Structure
 
@@ -45,103 +48,140 @@ Suggestify/
 └── register-status.php
 ```
 
----
-
-# ⚙️ Installation Guide
-
-## 1️⃣ Copy Project Files
-
-Copy the project folder into your web server directory.
-
-Example:
-
-```
-xampp/htdocs/Suggestify
-```
 
 ---
 
-## 2️⃣ Import Database
+## 🚀 Key Features
 
-Open **PHPMyAdmin** and import the SQL file:
+### 🌟 Content Discovery
+- **Curated Lists** – Browse popular Anime and K-Dramas (e.g., *Start-Up*, *Demon Slayer*, *Blue Lock*).
+- **Category Filtering** – Easily filter content between **Anime** and **Series** categories.
 
-```
-G02.sql
-```
+### ✍️ Community & Reviews
+- **User Reviews** – Users can post comments and share opinions about shows.
+- **Rating System** – Dynamic calculation of average ratings based on user feedback.
 
-This will create the required database and tables.
+### 👤 User Personalization
+- **Profile Management** – Users can customize their profiles, including **avatar uploads**.
+- **Personal Watchlist** – Save interesting titles to a private **“Watch Later”** list.
+- **Account Security** – Secure **Login / Register system** with session management.
 
 ---
 
-## 3️⃣ Configure Database Connection
+## 🛠️ Tech Stack
 
-Edit the following files:
+### Frontend
+- **HTML5**
+- **CSS3** (Custom Grid System – `grid.css`)
+- **JavaScript** (DOM Manipulation)
+
+### Backend
+- **PHP (Native)** – Handles server-side logic and session management.
+
+### Database
+- **MySQL** – Relational database used to store users, content, and reviews.
+
+### Architecture
+- **MVC-inspired structure** separating:
+  - Logic
+  - Views
+  - Database operations
+
+---
+
+## 💾 Database Structure
+
+The system uses a **Relational Database** (see `SQL_WEB.sql`). Key tables include:
+
+| Table Name | Description |
+|------------|-------------|
+| users | Stores user credentials, email, and profile image paths |
+| content | Metadata for Anime & K-Dramas (Title, Genre, Description) |
+| reviews | Stores user comments and ratings (linked to users and content) |
+| watchlist | Many-to-many relationship table for users' saved content |
+
+---
+
+## ⚙️ Installation Guide (Localhost)
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/PhonrawatLimfaguang/suggestifyZa-entertainment-platform.git
+```
+
+---
+
+### 2️⃣ Setup Web Server
+
+Use **XAMPP** or **WAMP**
+
+Move the project folder to:
 
 ```
-login.php
-register.php
+htdocs/     (for XAMPP)
+```
+
+or
+
+```
+www/        (for WAMP)
+```
+
+---
+
+### 3️⃣ Import Database
+
+1. Open **phpMyAdmin**
+
+```
+http://localhost/phpmyadmin
+```
+
+2. Create a new database:
+
+```
+suggestify_db
+```
+
+3. Import the SQL file included in the repository:
+
+```
+SQL_WEB.sql
+```
+
+---
+
+### 4️⃣ Configure Database Connection
+
+Open:
+
+```
 db_connection.php
 ```
 
-Update the database configuration:
+Ensure the credentials match your local MySQL configuration.
+
+Example:
 
 ```php
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "YOUR_DATABASE_NAME";
-```
-
-Adjust the values according to your MySQL configuration.
-
----
-
-# 👤 User Registration & Login
-
-## Register
-
-Go to:
-
-```
-register.html
-```
-
-Create a new account.
-
----
-
-## Login
-
-Go to:
-
-```
-login.html
-```
-
-Enter your username and password to access the system.
-
----
-
-# 🖼 Example Image
-
-Example of displaying an image from the project:
-
-```markdown
-![Logo](images/drama-logo.png)
+$dbname = "suggestify_db";
 ```
 
 ---
 
-# 🛠 Tech Stack
+### 5️⃣ Run the Project
 
-- PHP
-- MySQL
-- HTML
-- CSS
-- JavaScript
+Open your browser and go to:
 
----
+```
+http://localhost/suggestifyZa-entertainment-platform/index.php
+```
 
+The platform should now be running locally.
 # 📜 License
 
 This project is for educational purposes.
