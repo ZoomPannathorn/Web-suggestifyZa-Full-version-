@@ -1,11 +1,15 @@
 # 🔍🎬 SuggestifyZa: Anime & K-Drama Review Platform
 
 Suggestify is a web-based community platform for Anime and Korean Drama (K-Drama) enthusiasts. The platform allows users to discover trending series, read community reviews, and manage their personal watchlists.
+
 ---
 <img width="975" height="455" alt="537346863-304e73d6-3f0f-4017-87f1-7017691df9a2" src="https://github.com/user-attachments/assets/a2d39266-b44d-4c05-a389-6a08c8dfc2e1" />
 <img width="834" height="773" alt="Screenshot 2026-03-16 221644" src="https://github.com/user-attachments/assets/478c1302-7f08-4ca2-aaf5-9c99a64d05f9" />
 <img width="835" height="757" alt="Screenshot 2026-03-16 221713" src="https://github.com/user-attachments/assets/46e81898-410a-4990-bb1b-d1f7f8a094ab" />
 <img width="832" height="449" alt="Screenshot 2026-03-16 221753" src="https://github.com/user-attachments/assets/8d828618-83b0-4d6c-bd62-319e5a3c601b" />
+<img width="734" height="354" alt="Screenshot 2026-03-16 221908" src="https://github.com/user-attachments/assets/3172c96b-5165-422c-9232-24368ab7a121" />
+<img width="288" height="317" alt="Screenshot 2026-03-16 221932" src="https://github.com/user-attachments/assets/023fc899-0fd7-454a-86b7-1522c8d01ded" />
+
 
 # 📂 Project Structure
 
